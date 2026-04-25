@@ -21,8 +21,14 @@ export const ApiCreateCart = () =>
           summary: 'Cart with items',
           value: {
             items: [
-              { productId: 'prod-laptop-001', quantity: 1 },
-              { productId: 'prod-mouse-001', quantity: 2 },
+              {
+                productId: '550e8400-e29b-41d4-a716-446655440001',
+                quantity: 1,
+              },
+              {
+                productId: '550e8400-e29b-41d4-a716-446655440002',
+                quantity: 2,
+              },
             ],
           },
         },
@@ -60,7 +66,25 @@ export const ApiAddItem = () =>
       description: 'Add a product to the cart. Stock is reserved immediately.',
     }),
     ApiParam({ name: 'id', description: 'Cart ID' }),
-    ApiBody({ description: 'Product and quantity to add', type: Object }),
+    ApiBody({
+      description: 'Product and quantity to add',
+      schema: {
+        type: 'object',
+        properties: {
+          productId: {
+            type: 'string',
+            example: '550e8400-e29b-41d4-a716-446655440001',
+            description: 'Product ID to add',
+          },
+          quantity: {
+            type: 'number',
+            example: 2,
+            description: 'Quantity to add (positive integer)',
+          },
+        },
+        required: ['productId', 'quantity'],
+      },
+    }),
     ApiResponse({
       status: 200,
       description: 'Item added successfully with stock reserved',
@@ -81,7 +105,20 @@ export const ApiUpdateItem = () =>
     }),
     ApiParam({ name: 'id', description: 'Cart ID' }),
     ApiParam({ name: 'productId', description: 'Product ID' }),
-    ApiBody({ description: 'New quantity', type: Object }),
+    ApiBody({
+      description: 'New quantity',
+      schema: {
+        type: 'object',
+        properties: {
+          quantity: {
+            type: 'number',
+            example: 5,
+            description: 'New quantity (positive integer)',
+          },
+        },
+        required: ['quantity'],
+      },
+    }),
     ApiResponse({
       status: 200,
       description: 'Item quantity updated successfully',

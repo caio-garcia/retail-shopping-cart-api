@@ -41,7 +41,35 @@ export const ApiCreateProduct = () =>
       summary: 'Create a new product',
       description: 'Add a new product to the catalog (back-office operation)',
     }),
-    ApiBody({ description: 'Product data', type: Object }),
+    ApiBody({
+      description: 'Product data',
+      schema: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Wireless Keyboard',
+            description: 'Product name',
+          },
+          description: {
+            type: 'string',
+            example: 'Ergonomic wireless keyboard with RGB backlight',
+            description: 'Product description',
+          },
+          price: {
+            type: 'number',
+            example: 7999,
+            description: 'Price in cents (e.g., 7999 = $79.99)',
+          },
+          stock: {
+            type: 'number',
+            example: 50,
+            description: 'Initial stock quantity',
+          },
+        },
+        required: ['name', 'description', 'price', 'stock'],
+      },
+    }),
     ApiResponse({ status: 201, description: 'Product created successfully' }),
     ApiResponse({ status: 400, description: 'Invalid input data' }),
   );
@@ -55,7 +83,31 @@ export const ApiUpdateProduct = () =>
     ApiParam({ name: 'id', description: 'Product ID' }),
     ApiBody({
       description: 'Updated product data (all fields optional)',
-      type: Object,
+      schema: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+            example: 'Updated Product Name',
+            description: 'Product name',
+          },
+          description: {
+            type: 'string',
+            example: 'Updated product description',
+            description: 'Product description',
+          },
+          price: {
+            type: 'number',
+            example: 8999,
+            description: 'Price in cents',
+          },
+          stock: {
+            type: 'number',
+            example: 75,
+            description: 'Stock quantity',
+          },
+        },
+      },
     }),
     ApiResponse({ status: 200, description: 'Product updated successfully' }),
     ApiResponse({ status: 404, description: 'Product not found' }),
@@ -69,7 +121,20 @@ export const ApiAdjustStock = () =>
       description: 'Set new stock level for a product (back-office operation)',
     }),
     ApiParam({ name: 'id', description: 'Product ID' }),
-    ApiBody({ description: 'New stock quantity', type: Object }),
+    ApiBody({
+      description: 'New stock quantity',
+      schema: {
+        type: 'object',
+        properties: {
+          stock: {
+            type: 'number',
+            example: 100,
+            description: 'New stock quantity (non-negative integer)',
+          },
+        },
+        required: ['stock'],
+      },
+    }),
     ApiResponse({ status: 200, description: 'Stock adjusted successfully' }),
     ApiResponse({ status: 404, description: 'Product not found' }),
     ApiResponse({ status: 400, description: 'Invalid stock value' }),

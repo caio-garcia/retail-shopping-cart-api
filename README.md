@@ -243,7 +243,7 @@ curl http://localhost:3000/discounts?activeOnly=true
 ```bash
 GET /discounts/:id
 
-curl http://localhost:3000/discounts/disc-percentage-001
+curl http://localhost:3000/discounts/650e8400-e29b-41d4-a716-446655440001
 ```
 
 #### Create Discount
@@ -272,7 +272,7 @@ Content-Type: application/json
   "rules": {
     "buyQuantity": 3,
     "getQuantity": 1,
-    "productId": "prod-keyboard-001"
+    "productId": "550e8400-e29b-41d4-a716-446655440003"
   }
 }
 
@@ -291,7 +291,7 @@ Content-Type: application/json
   "isActive": false
 }
 
-curl -X PUT http://localhost:3000/discounts/disc-percentage-001 \
+curl -X PUT http://localhost:3000/discounts/650e8400-e29b-41d4-a716-446655440001 \
   -H "Content-Type: application/json" \
   -d '{"isActive":false}'
 ```

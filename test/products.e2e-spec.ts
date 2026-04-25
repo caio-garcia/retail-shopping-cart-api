@@ -52,10 +52,10 @@ describe('Products API (e2e)', () => {
   describe('GET /products/:id', () => {
     it('should return a specific product', () => {
       return request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200)
         .expect((res) => {
-          expect(res.body.id).toBe('prod-laptop-001');
+          expect(res.body.id).toBe('550e8400-e29b-41d4-a716-446655440001');
           expect(res.body.name).toBeDefined();
         });
     });
@@ -108,7 +108,7 @@ describe('Products API (e2e)', () => {
       };
 
       return request(app.getHttpServer())
-        .put('/products/prod-laptop-001')
+        .put('/products/550e8400-e29b-41d4-a716-446655440001')
         .send(updates)
         .expect(200)
         .expect((res) => {
@@ -128,7 +128,7 @@ describe('Products API (e2e)', () => {
   describe('PATCH /products/:id/stock', () => {
     it('should adjust product stock', () => {
       return request(app.getHttpServer())
-        .patch('/products/prod-mouse-001/stock')
+        .patch('/products/550e8400-e29b-41d4-a716-446655440002/stock')
         .send({ stock: 75 })
         .expect(200)
         .expect((res) => {

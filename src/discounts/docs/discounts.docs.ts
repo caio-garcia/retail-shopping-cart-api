@@ -77,7 +77,7 @@ export const ApiCreateDiscount = () =>
             rules: {
               buyQuantity: 2,
               getQuantity: 1,
-              productId: 'prod-mouse-001',
+              productId: '550e8400-e29b-41d4-a716-446655440002',
             },
           },
         },
@@ -91,7 +91,7 @@ export const ApiCreateDiscount = () =>
             rules: {
               minimumQuantity: 5,
               percentage: 15,
-              productId: 'prod-laptop-001',
+              productId: '550e8400-e29b-41d4-a716-446655440001',
             },
           },
         },
@@ -111,7 +111,31 @@ export const ApiUpdateDiscount = () =>
     ApiParam({ name: 'id', description: 'Discount ID' }),
     ApiBody({
       description: 'Updated discount data (all fields optional)',
-      type: Object,
+      examples: {
+        updateName: {
+          summary: 'Update name and description',
+          value: {
+            name: 'Updated Sale Name',
+            description: 'Updated discount description',
+          },
+        },
+        deactivate: {
+          summary: 'Deactivate discount',
+          value: {
+            isActive: false,
+          },
+        },
+        updateRules: {
+          summary: 'Update percentage discount rules',
+          value: {
+            name: '15% Off Sale',
+            description: '15% off everything',
+            type: 'PERCENTAGE_OFF',
+            isActive: true,
+            rules: { percentage: 15 },
+          },
+        },
+      },
     }),
     ApiResponse({ status: 200, description: 'Discount updated successfully' }),
     ApiResponse({ status: 404, description: 'Discount not found' }),

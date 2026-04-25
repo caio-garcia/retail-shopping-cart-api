@@ -51,10 +51,10 @@ describe('Discounts API (e2e)', () => {
   describe('GET /discounts/:id', () => {
     it('should return a specific discount', () => {
       return request(app.getHttpServer())
-        .get('/discounts/disc-percentage-001')
+        .get('/discounts/650e8400-e29b-41d4-a716-446655440001')
         .expect(200)
         .expect((res) => {
-          expect(res.body.id).toBe('disc-percentage-001');
+          expect(res.body.id).toBe('650e8400-e29b-41d4-a716-446655440001');
           expect(res.body.name).toBeDefined();
         });
     });
@@ -98,7 +98,7 @@ describe('Discounts API (e2e)', () => {
         rules: {
           buyQuantity: 1,
           getQuantity: 1,
-          productId: 'prod-mouse-001',
+          productId: '550e8400-e29b-41d4-a716-446655440002',
         },
       };
 
@@ -133,7 +133,7 @@ describe('Discounts API (e2e)', () => {
       };
 
       return request(app.getHttpServer())
-        .put('/discounts/disc-percentage-001')
+        .put('/discounts/650e8400-e29b-41d4-a716-446655440001')
         .send(updates)
         .expect(200)
         .expect((res) => {

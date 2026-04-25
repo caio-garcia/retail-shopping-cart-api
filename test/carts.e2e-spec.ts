@@ -45,8 +45,8 @@ describe('Carts API (e2e)', () => {
         .post('/carts')
         .send({
           items: [
-            { productId: 'prod-laptop-001', quantity: 1 },
-            { productId: 'prod-mouse-001', quantity: 2 },
+            { productId: '550e8400-e29b-41d4-a716-446655440001', quantity: 1 },
+            { productId: '550e8400-e29b-41d4-a716-446655440002', quantity: 2 },
           ],
         })
         .expect(201)
@@ -56,20 +56,24 @@ describe('Carts API (e2e)', () => {
           expect(res.body.status).toBe('ACTIVE');
 
           // Verify first item
-          expect(res.body.items[0].productId).toBe('prod-laptop-001');
+          expect(res.body.items[0].productId).toBe(
+            '550e8400-e29b-41d4-a716-446655440001',
+          );
           expect(res.body.items[0].quantity).toBe(1);
           expect(res.body.items[0].productName).toBeDefined();
           expect(res.body.items[0].price).toBeDefined();
 
           // Verify second item
-          expect(res.body.items[1].productId).toBe('prod-mouse-001');
+          expect(res.body.items[1].productId).toBe(
+            '550e8400-e29b-41d4-a716-446655440002',
+          );
           expect(res.body.items[1].quantity).toBe(2);
         });
     });
 
     it('should reserve stock when creating cart with items', async () => {
       const productBefore = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       const initialStock = productBefore.body.stock;
@@ -78,13 +82,15 @@ describe('Carts API (e2e)', () => {
       await request(app.getHttpServer())
         .post('/carts')
         .send({
-          items: [{ productId: 'prod-laptop-001', quantity: 2 }],
+          items: [
+            { productId: '550e8400-e29b-41d4-a716-446655440001', quantity: 2 },
+          ],
         })
         .expect(201);
 
       // Stock should remain unchanged (only reserved, not deducted)
       const productAfter = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       expect(productAfter.body.stock).toBe(initialStock);
@@ -94,7 +100,12 @@ describe('Carts API (e2e)', () => {
       return request(app.getHttpServer())
         .post('/carts')
         .send({
-          items: [{ productId: 'prod-laptop-001', quantity: 999 }],
+          items: [
+            {
+              productId: '550e8400-e29b-41d4-a716-446655440001',
+              quantity: 999,
+            },
+          ],
         })
         .expect(400);
     });
@@ -114,7 +125,7 @@ describe('Carts API (e2e)', () => {
         .post('/carts')
         .send({
           items: [
-            { productId: 'prod-laptop-001', quantity: 1 },
+            { productId: '550e8400-e29b-41d4-a716-446655440001', quantity: 1 },
             { productId: 'non-existent', quantity: 1 },
           ],
         })
@@ -124,7 +135,7 @@ describe('Carts API (e2e)', () => {
 
       // Verify no reservations were made for the valid product
       const productStock = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       // Stock should remain unchanged
@@ -135,7 +146,9 @@ describe('Carts API (e2e)', () => {
       return request(app.getHttpServer())
         .post('/carts')
         .send({
-          items: [{ productId: 'prod-laptop-001', quantity: 0 }],
+          items: [
+            { productId: '550e8400-e29b-41d4-a716-446655440001', quantity: 0 },
+          ],
         })
         .expect(400);
     });
@@ -144,7 +157,12 @@ describe('Carts API (e2e)', () => {
       return request(app.getHttpServer())
         .post('/carts')
         .send({
-          items: [{ productId: 'prod-laptop-001', quantity: 1.5 }],
+          items: [
+            {
+              productId: '550e8400-e29b-41d4-a716-446655440001',
+              quantity: 1.5,
+            },
+          ],
         })
         .expect(400);
     });
@@ -187,13 +205,15 @@ describe('Carts API (e2e)', () => {
       return request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 1,
         })
         .expect(201)
         .expect((res) => {
           expect(res.body.items).toHaveLength(1);
-          expect(res.body.items[0].productId).toBe('prod-laptop-001');
+          expect(res.body.items[0].productId).toBe(
+            '550e8400-e29b-41d4-a716-446655440001',
+          );
           expect(res.body.items[0].quantity).toBe(1);
         });
     });
@@ -206,7 +226,7 @@ describe('Carts API (e2e)', () => {
       const cartId = createRes.body.id;
 
       const productBefore = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       const initialStock = productBefore.body.stock;
@@ -214,13 +234,13 @@ describe('Carts API (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 2,
         })
         .expect(201);
 
       const productAfter = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       expect(productAfter.body.stock).toBe(initialStock);
@@ -236,7 +256,7 @@ describe('Carts API (e2e)', () => {
       return request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 999, // More than available
         })
         .expect(400);
@@ -270,13 +290,13 @@ describe('Carts API (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 1,
         })
         .expect(201);
 
       return request(app.getHttpServer())
-        .put(`/carts/${cartId}/items/prod-laptop-001`)
+        .put(`/carts/${cartId}/items/550e8400-e29b-41d4-a716-446655440001`)
         .send({ quantity: 3 })
         .expect(200)
         .expect((res) => {
@@ -292,7 +312,7 @@ describe('Carts API (e2e)', () => {
       const cartId = createRes.body.id;
 
       return request(app.getHttpServer())
-        .put(`/carts/${cartId}/items/prod-laptop-001`)
+        .put(`/carts/${cartId}/items/550e8400-e29b-41d4-a716-446655440001`)
         .send({ quantity: 3 })
         .expect(400);
     });
@@ -309,13 +329,13 @@ describe('Carts API (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 1,
         })
         .expect(201);
 
       return request(app.getHttpServer())
-        .delete(`/carts/${cartId}/items/prod-laptop-001`)
+        .delete(`/carts/${cartId}/items/550e8400-e29b-41d4-a716-446655440001`)
         .expect(200)
         .expect((res) => {
           expect(res.body.items).toHaveLength(0);
@@ -332,13 +352,13 @@ describe('Carts API (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 2,
         })
         .expect(201);
 
       await request(app.getHttpServer())
-        .delete(`/carts/${cartId}/items/prod-laptop-001`)
+        .delete(`/carts/${cartId}/items/550e8400-e29b-41d4-a716-446655440001`)
         .expect(200);
 
       const cart2Res = await request(app.getHttpServer())
@@ -348,7 +368,7 @@ describe('Carts API (e2e)', () => {
       return request(app.getHttpServer())
         .post(`/carts/${cart2Res.body.id}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 2,
         })
         .expect(201);
@@ -366,7 +386,7 @@ describe('Carts API (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 1,
         })
         .expect(201);

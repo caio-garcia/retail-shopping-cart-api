@@ -3,7 +3,7 @@ import { Discount, DiscountType } from '../interfaces/discount.interface';
 
 export const seedProducts: Product[] = [
   {
-    id: 'prod-laptop-001',
+    id: '550e8400-e29b-41d4-a716-446655440001',
     name: 'Premium Laptop',
     description: 'High-performance laptop with 16GB RAM and 512GB SSD',
     price: 129900,
@@ -12,7 +12,7 @@ export const seedProducts: Product[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'prod-mouse-001',
+    id: '550e8400-e29b-41d4-a716-446655440002',
     name: 'Wireless Mouse',
     description: 'Ergonomic wireless mouse with precision tracking',
     price: 3500,
@@ -21,7 +21,7 @@ export const seedProducts: Product[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'prod-keyboard-001',
+    id: '550e8400-e29b-41d4-a716-446655440003',
     name: 'Mechanical Keyboard',
     description: 'RGB mechanical keyboard with cherry MX switches',
     price: 8900,
@@ -30,7 +30,7 @@ export const seedProducts: Product[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'prod-monitor-001',
+    id: '550e8400-e29b-41d4-a716-446655440004',
     name: '27" 4K Monitor',
     description: 'Ultra HD 4K monitor with HDR support',
     price: 45900,
@@ -39,7 +39,7 @@ export const seedProducts: Product[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'prod-headset-001',
+    id: '550e8400-e29b-41d4-a716-446655440005',
     name: 'Wireless Headset',
     description: 'Noise-cancelling wireless headset with mic',
     price: 12900,
@@ -48,7 +48,7 @@ export const seedProducts: Product[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'prod-webcam-001',
+    id: '550e8400-e29b-41d4-a716-446655440006',
     name: 'HD Webcam',
     description: '1080p webcam with auto-focus',
     price: 6900,
@@ -57,7 +57,7 @@ export const seedProducts: Product[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'prod-cable-001',
+    id: '550e8400-e29b-41d4-a716-446655440007',
     name: 'USB-C Cable',
     description: '6ft USB-C charging cable',
     price: 1500,
@@ -69,7 +69,7 @@ export const seedProducts: Product[] = [
 
 export const seedDiscounts: Discount[] = [
   {
-    id: 'disc-percentage-001',
+    id: '650e8400-e29b-41d4-a716-446655440001',
     name: '10% Off Everything',
     description: 'Get 10% off your entire purchase',
     type: DiscountType.PERCENTAGE_OFF,
@@ -81,7 +81,7 @@ export const seedDiscounts: Discount[] = [
     updatedAt: Date.now(),
   },
   {
-    id: 'disc-bogo-mouse-001',
+    id: '650e8400-e29b-41d4-a716-446655440002',
     name: 'Buy 2 Get 1 Free - Mouse',
     description: 'Buy 2 wireless mice and get 1 free',
     type: DiscountType.BUY_X_GET_Y,
@@ -89,13 +89,13 @@ export const seedDiscounts: Discount[] = [
     rules: {
       buyQuantity: 2,
       getQuantity: 1,
-      productId: 'prod-mouse-001',
+      productId: '550e8400-e29b-41d4-a716-446655440002',
     },
     createdAt: Date.now(),
     updatedAt: Date.now(),
   },
   {
-    id: 'disc-bulk-cable-001',
+    id: '650e8400-e29b-41d4-a716-446655440003',
     name: 'Bulk Cable Discount',
     description: 'Buy 5 or more cables and get 20% off',
     type: DiscountType.BULK_PRICING,
@@ -103,13 +103,13 @@ export const seedDiscounts: Discount[] = [
     rules: {
       minQuantity: 5,
       discountPercentage: 20,
-      applicableProductId: 'prod-cable-001',
+      applicableProductId: '550e8400-e29b-41d4-a716-446655440007',
     },
     createdAt: Date.now(),
     updatedAt: Date.now(),
   },
   {
-    id: 'disc-fixed-amount-001',
+    id: '650e8400-e29b-41d4-a716-446655440004',
     name: '$50 Off',
     description: 'Get $50 off your purchase',
     type: DiscountType.FIXED_AMOUNT_OFF,

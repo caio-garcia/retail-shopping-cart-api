@@ -37,7 +37,7 @@ describe('Checkout Scenarios (e2e)', () => {
       const cartId = createRes.body.id;
 
       const productBefore = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       const initialStock = productBefore.body.stock;
@@ -45,7 +45,7 @@ describe('Checkout Scenarios (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 2,
         })
         .expect(201);
@@ -61,7 +61,7 @@ describe('Checkout Scenarios (e2e)', () => {
       expect(checkoutRes.body.completedAt).toBeDefined();
 
       const productAfter = await request(app.getHttpServer())
-        .get('/products/prod-laptop-001')
+        .get('/products/550e8400-e29b-41d4-a716-446655440001')
         .expect(200);
 
       expect(productAfter.body.stock).toBe(initialStock - 2);
@@ -77,7 +77,7 @@ describe('Checkout Scenarios (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 1,
         })
         .expect(201);
@@ -111,7 +111,7 @@ describe('Checkout Scenarios (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cart1Res.body.id}/items`)
         .send({
-          productId: 'prod-monitor-001',
+          productId: '550e8400-e29b-41d4-a716-446655440004',
           quantity: 5,
         })
         .expect(201);
@@ -123,7 +123,7 @@ describe('Checkout Scenarios (e2e)', () => {
       return request(app.getHttpServer())
         .post(`/carts/${cart2Res.body.id}/items`)
         .send({
-          productId: 'prod-monitor-001',
+          productId: '550e8400-e29b-41d4-a716-446655440004',
           quantity: 5,
         })
         .expect(400);
@@ -139,7 +139,7 @@ describe('Checkout Scenarios (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-laptop-001',
+          productId: '550e8400-e29b-41d4-a716-446655440001',
           quantity: 1,
         })
         .expect(201);
@@ -163,7 +163,7 @@ describe('Checkout Scenarios (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-mouse-001',
+          productId: '550e8400-e29b-41d4-a716-446655440002',
           quantity: 3,
         })
         .expect(201);
@@ -192,7 +192,7 @@ describe('Checkout Scenarios (e2e)', () => {
       await request(app.getHttpServer())
         .post(`/carts/${cartId}/items`)
         .send({
-          productId: 'prod-cable-001',
+          productId: '550e8400-e29b-41d4-a716-446655440007',
           quantity: 6,
         })
         .expect(201);
@@ -214,7 +214,7 @@ describe('Checkout Scenarios (e2e)', () => {
 
   describe('Concurrency scenarios', () => {
     it('should handle concurrent carts competing for limited stock', async () => {
-      const productId = 'prod-monitor-001';
+      const productId = '550e8400-e29b-41d4-a716-446655440004';
 
       const cart1Res = await request(app.getHttpServer())
         .post('/carts')
@@ -268,17 +268,26 @@ describe('Checkout Scenarios (e2e)', () => {
 
       await request(app.getHttpServer())
         .post(`/carts/${cart1.id}/items`)
-        .send({ productId: 'prod-laptop-001', quantity: 1 })
+        .send({
+          productId: '550e8400-e29b-41d4-a716-446655440001',
+          quantity: 1,
+        })
         .expect(201);
 
       await request(app.getHttpServer())
         .post(`/carts/${cart2.id}/items`)
-        .send({ productId: 'prod-mouse-001', quantity: 2 })
+        .send({
+          productId: '550e8400-e29b-41d4-a716-446655440002',
+          quantity: 2,
+        })
         .expect(201);
 
       await request(app.getHttpServer())
         .post(`/carts/${cart3.id}/items`)
-        .send({ productId: 'prod-keyboard-001', quantity: 1 })
+        .send({
+          productId: '550e8400-e29b-41d4-a716-446655440003',
+          quantity: 1,
+        })
         .expect(201);
 
       const [res1, res2, res3] = await Promise.all([
@@ -287,9 +296,15 @@ describe('Checkout Scenarios (e2e)', () => {
         request(app.getHttpServer()).get(`/carts/${cart3.id}`),
       ]);
 
-      expect(res1.body.items[0].productId).toBe('prod-laptop-001');
-      expect(res2.body.items[0].productId).toBe('prod-mouse-001');
-      expect(res3.body.items[0].productId).toBe('prod-keyboard-001');
+      expect(res1.body.items[0].productId).toBe(
+        '550e8400-e29b-41d4-a716-446655440001',
+      );
+      expect(res2.body.items[0].productId).toBe(
+        '550e8400-e29b-41d4-a716-446655440002',
+      );
+      expect(res3.body.items[0].productId).toBe(
+        '550e8400-e29b-41d4-a716-446655440003',
+      );
     });
   });
 });
