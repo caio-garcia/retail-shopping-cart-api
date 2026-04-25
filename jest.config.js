@@ -14,6 +14,7 @@ module.exports = {
     '.config.js',
     '/src/main.ts',
     '.module.ts',
+    '.schema.ts',
   ],
   coveragePathIgnorePatterns: [
     '/node_modules/',
@@ -21,5 +22,17 @@ module.exports = {
     '.config.js',
     '/src/main.ts',
     '.module.ts',
+    '.schema.ts',
+    '.store.ts',
+    '/common/',
   ],
+  transformIgnorePatterns: ['node_modules/(?!(uuid)/)'],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
 };

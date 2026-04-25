@@ -1,0 +1,123 @@
+import { Product } from '../interfaces/product.interface';
+import { Discount, DiscountType } from '../interfaces/discount.interface';
+
+export const seedProducts: Product[] = [
+  {
+    id: 'prod-laptop-001',
+    name: 'Premium Laptop',
+    description: 'High-performance laptop with 16GB RAM and 512GB SSD',
+    price: 129900,
+    stock: 10,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'prod-mouse-001',
+    name: 'Wireless Mouse',
+    description: 'Ergonomic wireless mouse with precision tracking',
+    price: 3500,
+    stock: 50,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'prod-keyboard-001',
+    name: 'Mechanical Keyboard',
+    description: 'RGB mechanical keyboard with cherry MX switches',
+    price: 8900,
+    stock: 25,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'prod-monitor-001',
+    name: '27" 4K Monitor',
+    description: 'Ultra HD 4K monitor with HDR support',
+    price: 45900,
+    stock: 8,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'prod-headset-001',
+    name: 'Wireless Headset',
+    description: 'Noise-cancelling wireless headset with mic',
+    price: 12900,
+    stock: 30,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'prod-webcam-001',
+    name: 'HD Webcam',
+    description: '1080p webcam with auto-focus',
+    price: 6900,
+    stock: 20,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'prod-cable-001',
+    name: 'USB-C Cable',
+    description: '6ft USB-C charging cable',
+    price: 1500,
+    stock: 100,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+];
+
+export const seedDiscounts: Discount[] = [
+  {
+    id: 'disc-percentage-001',
+    name: '10% Off Everything',
+    description: 'Get 10% off your entire purchase',
+    type: DiscountType.PERCENTAGE_OFF,
+    isActive: true,
+    rules: {
+      percentage: 10,
+    },
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'disc-bogo-mouse-001',
+    name: 'Buy 2 Get 1 Free - Mouse',
+    description: 'Buy 2 wireless mice and get 1 free',
+    type: DiscountType.BUY_X_GET_Y,
+    isActive: true,
+    rules: {
+      buyQuantity: 2,
+      getQuantity: 1,
+      productId: 'prod-mouse-001',
+    },
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'disc-bulk-cable-001',
+    name: 'Bulk Cable Discount',
+    description: 'Buy 5 or more cables and get 20% off',
+    type: DiscountType.BULK_PRICING,
+    isActive: true,
+    rules: {
+      minQuantity: 5,
+      discountPercentage: 20,
+      applicableProductId: 'prod-cable-001',
+    },
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+  {
+    id: 'disc-fixed-amount-001',
+    name: '$50 Off',
+    description: 'Get $50 off your purchase',
+    type: DiscountType.FIXED_AMOUNT_OFF,
+    isActive: true,
+    rules: {
+      amount: 5000,
+    },
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  },
+];

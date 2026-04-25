@@ -1,0 +1,3 @@
+npm run test:cov
+rm -rf coverage
+npm run test:e2e
